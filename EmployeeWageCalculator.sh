@@ -2,6 +2,18 @@
 
 echo "Welcome to Employee Wage Calculator"
 
+function monthlyWageCalc(){
+
+	local dailyWage=$1
+
+	local daysInMonth=20
+	
+	local monthlyWage=$(( $daysInMonth*$dailyWage ))
+
+	echo "$monthlyWage"
+
+}
+
 IS_PRESENT_FULLTIME=1
 
 IS_PRESENT_HALFTIME=2
@@ -17,6 +29,8 @@ case $empCheck in
 	*) empHrs=0 ;;
 esac
 
-totalSalary=$(( $empHrs * $EMP_RATE_PER_HR ));
+salary=$(( $empHrs * $EMP_RATE_PER_HR ));
 
-echo $totalSalary
+monthlySalary="$( monthlyWageCalc $salary )"
+
+echo $monthlySalary

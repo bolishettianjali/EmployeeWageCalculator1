@@ -2,7 +2,7 @@
 
 echo "Welcome to Employee Wage Calculator"
 
-declare -a dailyWages
+declare -A dailyWages
 
 IS_PRESENT_FULLTIME=1
 IS_PRESENT_HALFTIME=2
@@ -28,16 +28,21 @@ function getWorkingHours(){
 	echo $empHrs
 }
 
-while [ $totalWorkDys -le $NO_OF_WORKINGDAYS ] && [ $totalWorkHrs -lt $MAX_WORKHRS ]
+i=1
+totalWage=0
+
+while [ $i -le $NO_OF_WORKINGDAYS ] && [ $totalWorkHrs -le $MAX_WORKHRS ]
 do
 	empCheck=$(( $RANDOM%3 ))
-	totalWorkDys=$(( $totalWorkDys + 1 ))
 	empHrs="$( getWorkingHours $empCheck )"
+	if [ $empHrs -gt 0 ]
+	then
 	totalWorkHrs=$(( $totalWorkingHours + $empHrs ))
-	dailyWages[ $totalWorkDys ]=$(( $empHrs * $EMP_RATE_PER_HR ))
+	dailyWage[ $i ]=$(( $empHrs * $EMP_RATE_PER_HR ))
+	totalWage=$(( $totalWage + $(($empHrs * $EMP_RATE_PER_HR )) ))
+	fi
+		((i++))
 done
-
 salary=$(( $EMP_RATE_PER_HR * $totalWorkHrs ))
-echo "Number of days: ${#dailyWages[@]}"
-echo "Wages: ${dailyWages[@]}"
-echo "Days: ${!dailyWages[@]}"
+echo Wages: ${dailyWage[@]}
+echo Total Wage: $totalWage

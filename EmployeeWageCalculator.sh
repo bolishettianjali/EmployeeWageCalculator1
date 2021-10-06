@@ -4,13 +4,19 @@ echo "Welcome to Employee Wage Calculator"
 
 function monthlyWageCalc(){
 
-	local dailyWage=$1
-
-	local daysInMonth=20
+	local empHours=$1
+	local Salary=$2
+	local empWorkHrs=0
+	local empWorkDays=1
+	local total=0
 	
-	local monthlyWage=$(( $daysInMonth*$dailyWage ))
-
-	echo "$monthlyWage"
+	while [ "$empWorkDays" -le 20 ] && [ "$empWorkHrs" -le 100 ]
+	do
+		total=$(( $total+$Salary ))
+		empWorkDays=$(( $empWorkDays+1 ))
+		empWorkHrs=$(( $empWorkHrs+$empHours))
+	done
+	echo "$total"
 
 }
 
@@ -31,6 +37,6 @@ esac
 
 salary=$(( $empHrs * $EMP_RATE_PER_HR ));
 
-monthlySalary="$( monthlyWageCalc $salary )"
+monthlySalary="$( monthlyWageCalc $empHrs $salary )"
 
-echo $monthlySalary
+echo "monthly salary is: $monthlySalary"

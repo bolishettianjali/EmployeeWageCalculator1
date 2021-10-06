@@ -8,7 +8,7 @@ IS_PRESENT_FULLTIME=1
 IS_PRESENT_HALFTIME=2
 EMP_RATE_PER_HR=20
 MAX_WORKHRS=20
-NO_OF_WORKINGDAYS=19
+NO_OF_WORKINGDAYS=20
 
 totalWorkHrs=0
 totalWorkDys=0
@@ -37,12 +37,15 @@ do
 	empHrs="$( getWorkingHours $empCheck )"
 	if [ $empHrs -gt 0 ]
 	then
-	totalWorkHrs=$(( $totalWorkingHours + $empHrs ))
+	totalWorkDays=$(( $totalWorkDays + 1 ))
+	totalWorkHrs=$(( $totalWorkHours + $empHrs ))
 	dailyWage[ $i ]=$(( $empHrs * $EMP_RATE_PER_HR ))
 	totalWage=$(( $totalWage + $(($empHrs * $EMP_RATE_PER_HR )) ))
 	fi
 		((i++))
 done
 salary=$(( $EMP_RATE_PER_HR * $totalWorkHrs ))
+echo Number of days: $totalWorkDays
 echo Wages: ${dailyWage[@]}
+echo Days: ${!dailyWage[@]}
 echo Total Wage: $totalWage

@@ -8,20 +8,15 @@ IS_PRESENT_HALFTIME=2
 
 EMP_RATE_PER_HR=20
 
-empCheck=$((RANDOM%2))
+empCheck=$((RANDOM%3))
 
-if [ $empCheck -eq $IS_PRESENT_HALFTIME ]
-then
+case $empCheck in
 	
-	empHrs=8
+	$IS_PRESENT_FULLTIME ) empHrs=8 ;;
+	$IS_PRESENT_HALFTIME ) empHrs=4 ;;
+	*) empHrs=0 ;;
+esac
 
-elif [ $empCheck -eq $IS_PRESENT_FULLTIME ]
-then 
-	empHrs=4
-else
-	empHrs=0
-fi
-Totalsalary=$(( $empHrs * $EMP_RATE_PER_HR ));
+totalSalary=$(( $empHrs * $EMP_RATE_PER_HR ));
 
-echo $Totalsalary
-echo $Totalsalary
+echo $totalSalary
